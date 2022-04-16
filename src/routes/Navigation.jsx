@@ -43,6 +43,7 @@ export function Navigation() {
           <Route
             key={index}
             path={route.path}
+            exact={route.exact}
             render={(props) => (
               <route.layout>
                 <route.component {...props} />
