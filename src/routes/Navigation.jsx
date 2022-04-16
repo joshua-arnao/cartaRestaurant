@@ -1,12 +1,29 @@
 // --------------------- V@6.3.0 ---------------------
 import React from "react";
-import { Routes } from "react-router-dom";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
+import routes from "./routes";
+import { map } from "lodash";
+
+console.log(routes);
 
 export function Navigation() {
+  console.log();
   return (
-    <Routes>
-      <h2>Navigation</h2>
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        {map(routes, (route, index) => (
+          <Route
+            key={index}
+            path={route.path}
+            element={
+              <route.layout>
+                <route.component />
+              </route.layout>
+            }
+          />
+        ))}
+      </Routes>
+    </BrowserRouter>
   );
 }
 // --------------------- V@5.3.0 ---------------------
