@@ -8,6 +8,7 @@ const routes = [
   ...routesAdmin,
   ...routesClient,
   {
+    path: "*",
     layout: ErrorLayout,
     component: Error404,
   },
