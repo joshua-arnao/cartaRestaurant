@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import { setToken, getToken } from "../api/token";
+import { setToken, getToken, removeToken } from "../api/token";
 import { useUser } from "../hooks";
 
 export const AuthContext = createContext({
@@ -26,6 +26,7 @@ export function AuthProvider(props) {
       }
     })();
   }, []);
+
   const login = async (token) => {
     setToken(token);
     const me = await getMe(token);
@@ -33,10 +34,16 @@ export function AuthProvider(props) {
     console.log(me);
   };
 
+  const logout = (token) => {
+    if (auth) {
+      removeToken();
+      setAuth(null);
+    }
+  };
   const ValueContext = {
     auth,
     login,
-    logout: () => console.log("Cerrando sesión"),
+    logout,
   };
 
   // con esta función al recargar la página no veremos la vista login en nigún moemnto
