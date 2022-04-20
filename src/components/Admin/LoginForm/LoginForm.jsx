@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 import {
   Box,
   Button,
@@ -33,8 +34,7 @@ export function LoginForm() {
         const { access } = response;
         console.log(access);
       } catch (error) {
-        console.log("ERROR");
-        console.log(error);
+        toast.error(error.message);
       }
     },
   });

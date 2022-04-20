@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 
 import { extendTheme, ChakraProvider } from "@chakra-ui/react";
 
+import "react-toastify/dist/ReactToastify.css";
+
 const colors = {
   brand: {
     900: "#1a365d",
