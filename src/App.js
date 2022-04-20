@@ -1,10 +1,11 @@
 import React from "react";
 import { ToastContainer } from "react-toastify"; // https://fkhadra.github.io/react-toastify/introduction/
 import { Navigation } from "./routes";
+import { AuthProvider } from "./context";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <Navigation />
 
       <ToastContainer
@@ -18,7 +19,7 @@ function App() {
         draggable
         pauseOnHover={false}
       />
-    </div>
+    </AuthProvider>
   );
 }
 

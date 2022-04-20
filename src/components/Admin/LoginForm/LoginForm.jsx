@@ -2,6 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { useAuth } from "../../../hooks";
 import {
   Box,
   Button,
@@ -23,6 +24,8 @@ export function LoginForm() {
   //     console.log(formValue);
   //   },
   // });
+
+  console.log(useAuth());
 
   const formik = useFormik({
     initialValues: initialValues(),
