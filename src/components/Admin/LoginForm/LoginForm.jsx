@@ -17,15 +17,8 @@ import { loginApi } from "../../../api/user";
 import "./LoginForm.scss";
 
 export function LoginForm() {
-  // const formik = useFormik({
-  //   initialValues: initialValues(),
-  //   onSubmit: (formValue) => {
-  //     console.log("Login OK");
-  //     console.log(formValue);
-  //   },
-  // });
-
-  console.log(useAuth());
+  const { login } = useAuth();
+  // console.log(useAuth());
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -33,9 +26,10 @@ export function LoginForm() {
     onSubmit: async (formValue) => {
       try {
         const response = await loginApi(formValue);
-        console.log(response);
+        // console.log(response);
         const { access } = response;
-        console.log(access);
+        login(access);
+        // console.log(access);
       } catch (error) {
         toast.error(error.message);
       }
