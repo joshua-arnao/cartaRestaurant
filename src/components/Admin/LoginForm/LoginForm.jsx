@@ -11,6 +11,7 @@ import {
   VStack,
   FormErrorMessage,
 } from "@chakra-ui/react";
+import { loginApi } from "../../../api/user";
 import "./LoginForm.scss";
 
 export function LoginForm() {
@@ -25,9 +26,16 @@ export function LoginForm() {
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
-    onSubmit: (formValue) => {
-      console.log("Login OK");
-      console.log(formValue);
+    onSubmit: async (formValue) => {
+      try {
+        const response = await loginApi(formValue);
+        console.log(response);
+        const { access } = response;
+        console.log(access);
+      } catch (error) {
+        console.log("ERROR");
+        console.log(error);
+      }
     },
   });
   return (
