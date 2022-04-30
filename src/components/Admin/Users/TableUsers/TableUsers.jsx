@@ -7,13 +7,23 @@ import {
   Th,
   Tbody,
   Td,
+  Icon,
+  IconButton,
+  Stack,
 } from "@chakra-ui/react";
 import { map } from "lodash";
+import {
+  MdCheckCircle,
+  MdCancel,
+  MdModeEditOutline,
+  MdDelete,
+} from "react-icons/md";
 
 export function TableUsers(props) {
   const { users } = props;
+
   return (
-    <TableContainer>
+    <TableContainer my={8}>
       <Table variant="simple">
         <Thead>
           <Tr>
@@ -33,12 +43,47 @@ export function TableUsers(props) {
               <Td>{user.email}</Td>
               <Td>{user.first_name}</Td>
               <Td>{user.last_name}</Td>
-              <Td>{user.is_active}</Td>
-              <Td>{user.is_staff}</Td>
+              <Td justifyItems={"center"}>
+                {user.is_active ? (
+                  <Icon as={MdCheckCircle} color={"green"} />
+                ) : (
+                  <Icon as={MdCancel} color={"red"} />
+                )}
+              </Td>
+              <Td justifyItems={"center"}>
+                {user.is_staff ? (
+                  <Icon as={MdCheckCircle} color={"green"} />
+                ) : (
+                  <Icon as={MdCancel} color={"red"} />
+                )}
+              </Td>
+              <Actions user={user} />
             </Tr>
           ))}
         </Tbody>
       </Table>
     </TableContainer>
+  );
+}
+
+function Actions(props) {
+  const { user } = props;
+
+  return (
+    <Td>
+      <Stack direction="row" spacing={2}>
+        <IconButton
+          aria-label="Edit"
+          icon={<MdModeEditOutline />}
+          onClick={() => console.log(`Editar usuario ${user.email}`)}
+        ></IconButton>
+        <IconButton
+          aria-label="Delete"
+          icon={<MdDelete />}
+          onClick={() => console.log(`Eliminar ${user.email}`)}
+          colorScheme="red"
+        ></IconButton>
+      </Stack>
+    </Td>
   );
 }
