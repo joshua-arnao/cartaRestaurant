@@ -1,6 +1,8 @@
 import React from "react";
 import { LoginAdmin } from "../../pages/Admin";
 import { useAuth } from "../../hooks";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { TopMenu } from "../../components/Admin";
 import "./AdminLayout.scss";
 
 export function AdminLayout(props) {
@@ -10,9 +12,26 @@ export function AdminLayout(props) {
   if (!auth) return <LoginAdmin />;
 
   return (
-    <div>
-      <p>AdminLayout</p>
-      {children}
-    </div>
+    <Grid
+      w="100%"
+      minH="100vh"
+      templateRows="repeat(2, 1fr)"
+      className="admin-layout"
+      gridTemplateRows={{
+        md: "72px 1fr",
+      }}
+      gridTemplateAreas={{
+        md: `'TopMenu' 'Content'`,
+      }}
+      gap={0}
+    >
+      <GridItem gridArea="TopMenu" height="55px" className="admin-layout__menu">
+        <TopMenu />
+      </GridItem>
+
+      <GridItem gridArea="Content" className="admin-layout__main-content">
+        {children}
+      </GridItem>
+    </Grid>
   );
 }
