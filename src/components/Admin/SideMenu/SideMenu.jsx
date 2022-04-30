@@ -113,7 +113,7 @@ function MenuLeft(props) {
           <Spacer />
         </Flex>
 
-        {auth.me?.if_staff && (
+        {auth.me?.is_staff && (
           <Flex
             alignItems="center"
             p={4}
