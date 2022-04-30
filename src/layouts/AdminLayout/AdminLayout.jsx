@@ -2,7 +2,7 @@ import React from "react";
 import { LoginAdmin } from "../../pages/Admin";
 import { useAuth } from "../../hooks";
 import { Grid, GridItem } from "@chakra-ui/react";
-import { TopMenu } from "../../components/Admin";
+import { TopMenu, SideMenu } from "../../components/Admin";
 import "./AdminLayout.scss";
 
 export function AdminLayout(props) {
@@ -30,7 +30,7 @@ export function AdminLayout(props) {
       </GridItem>
 
       <GridItem gridArea="Content" className="admin-layout__main-content">
-        {children}
+        <SideMenu>{children}</SideMenu>
       </GridItem>
     </Grid>
   );

@@ -5,6 +5,7 @@ import {
   Flex,
   Spacer,
   Box,
+  Text,
   ButtonGroup,
   IconButton,
 } from "@chakra-ui/react";
@@ -22,10 +23,12 @@ export function TopMenu() {
   };
 
   return (
-    <Grid pos="fixed" w="100%" zIndex={1} boxShadow="base">
+    <Grid pos="fixed" w="100%" zIndex="banner" boxShadow="base" bg="#A5BE7F">
       <Flex minWidth="max-content" alignItems="center" gap="2" p="4">
         <Box>
-          <h1>Restaurante</h1>
+          <Text fontSize="3xl" color="white">
+            Restaurante
+          </Text>
         </Box>
         <Spacer />
         <ButtonGroup gap="2" alignItems="center">

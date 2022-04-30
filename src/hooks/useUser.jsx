@@ -1,4 +1,3 @@
-import React from "react";
 import { getMeApi } from "../api/user";
 
 export function useUser() {
