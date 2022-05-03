@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useUser } from "../../../../hooks";
 import {
   ModalFooter,
   ModalBody,
@@ -10,23 +11,36 @@ import {
   SimpleGrid,
   Switch,
   Button,
-  Checkbox,
 } from "@chakra-ui/react";
 
 export function AddEditUserForm(props) {
+  const { onClose, onRefetch, user } = props;
+
+  const { addUser, updateUser } = useUser();
+
   const formik = useFormik({
-    initialValues: initialValues(),
-    validationSchema: Yup.object(newSchema()),
+    initialValues: initialValues(user),
+    validationSchema: Yup.object(user ? updateSchema() : newSchema()),
     validateOnChange: false,
-    onSubmit: (formValue) => {
-      console.log("Formulario enviado");
-      console.log(formValue);
+    onSubmit: async (formValue) => {
+      try {
+        if (user) await updateUser(user.id, formValue);
+        else await addUser(formValue);
+
+        onRefetch();
+        onClose();
+        console.log("Usuario creado correctamente");
+      } catch (error) {
+        console.error(error);
+      }
+      // console.log("Formulario enviado");
+      // console.log(formValue);
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <ModalBody pb={6}>
+      <ModalBody>
         <FormControl>
           <FormLabel>Usuario</FormLabel>
           <Input
@@ -38,7 +52,7 @@ export function AddEditUserForm(props) {
           />
         </FormControl>
 
-        <FormControl mt={4}>
+        <FormControl mt={2}>
           <FormLabel>Correo electronico</FormLabel>
           <Input
             name="email"
@@ -49,7 +63,7 @@ export function AddEditUserForm(props) {
           />
         </FormControl>
 
-        <FormControl mt={4}>
+        <FormControl mt={2}>
           <FormLabel>Nombre</FormLabel>
           <Input
             name="first_name"
@@ -60,7 +74,7 @@ export function AddEditUserForm(props) {
           />
         </FormControl>
 
-        <FormControl mt={4}>
+        <FormControl mt={2}>
           <FormLabel>Apellido</FormLabel>
           <Input
             name="last_name"
@@ -71,7 +85,7 @@ export function AddEditUserForm(props) {
           />
         </FormControl>
 
-        <FormControl mt={4}>
+        <FormControl mt={2} mb={6}>
           <FormLabel>Contraseña</FormLabel>
           <Input
             name="password"
@@ -83,45 +97,47 @@ export function AddEditUserForm(props) {
           />
         </FormControl>
 
-        <FormControl as={SimpleGrid} columns={2} mt={2}>
+        <FormControl as={SimpleGrid} columns={2}>
           <FormLabel htmlFor="isInvalid">Usuario Activo:</FormLabel>
           <Switch
             name="is_active"
             isChecked={formik.values.is_active}
             //onChange={(_, data) => console.log(data)}
             onChange={formik.handleChange}
+            colorScheme="teal"
           />
         </FormControl>
 
-        <FormControl as={SimpleGrid} columns={2} mt={2}>
+        <FormControl as={SimpleGrid} columns={2}>
           <FormLabel htmlFor="isInvalid">Usuario Administrador:</FormLabel>
           <Switch
             name="is_staff"
             isChecked={formik.values.is_staff}
             //onChange={(_, data) => console.log(data)}
             onChange={formik.handleChange}
+            colorScheme="teal"
           />
         </FormControl>
       </ModalBody>
 
       <ModalFooter>
-        <Button type="submit" colorScheme="blue" mr={3}>
-          Crear
+        <Button type="submit" isFullWidth colorScheme="teal">
+          {user ? "Actualizar" : "Crear"}
         </Button>
-        <Button>Cancel</Button>
       </ModalFooter>
     </form>
   );
 }
 
-function initialValues() {
+function initialValues(data) {
   return {
-    username: "",
-    email: "",
-    first_name: "",
-    last_name: "",
-    is_active: true,
-    is_staff: false,
+    username: data?.username || "",
+    email: data?.email || "",
+    first_name: data?.first_name || "",
+    last_name: data?.last_name || "",
+    password: "",
+    is_active: data?.is_active ? true : false,
+    is_staff: data?.is_staff ? true : false,
   };
 }
 
@@ -129,10 +145,22 @@ function newSchema() {
   return {
     username: Yup.string().required(true),
     email: Yup.string().email(true).required(true),
-    first_name: Yup.string(),
-    last_name: Yup.string(),
+    first_name: Yup.string().required(true),
+    last_name: Yup.string().required(true),
     password: Yup.string().required(true),
-    is_active: Yup.bool().isTrue(true).required(true),
+    is_active: Yup.bool().required(true),
+    is_staff: Yup.bool().required(true),
+  };
+}
+
+function updateSchema() {
+  return {
+    username: Yup.string().required(true),
+    email: Yup.string().email(true).required(true),
+    first_name: Yup.string().required(true),
+    last_name: Yup.string().required(true),
+    password: Yup.string(),
+    is_active: Yup.bool().required(true),
     is_staff: Yup.bool().required(true),
   };
 }

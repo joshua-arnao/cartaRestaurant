@@ -20,7 +20,7 @@ import {
 } from "react-icons/md";
 
 export function TableUsers(props) {
-  const { users } = props;
+  const { users, updateUser, onDeleteUser } = props;
 
   return (
     <TableContainer my={8}>
@@ -57,7 +57,11 @@ export function TableUsers(props) {
                   <Icon as={MdCancel} color={"red"} />
                 )}
               </Td>
-              <Actions user={user} />
+              <Actions
+                user={user}
+                updateUser={updateUser}
+                onDeleteUser={onDeleteUser}
+              />
             </Tr>
           ))}
         </Tbody>
@@ -67,7 +71,7 @@ export function TableUsers(props) {
 }
 
 function Actions(props) {
-  const { user } = props;
+  const { user, updateUser, onDeleteUser } = props;
 
   return (
     <Td>
@@ -75,12 +79,15 @@ function Actions(props) {
         <IconButton
           aria-label="Edit"
           icon={<MdModeEditOutline />}
-          onClick={() => console.log(`Editar usuario ${user.email}`)}
+          onClick={
+            () => updateUser(user)
+            //console.log(`Editar usuario ${user.email}`)
+          }
         ></IconButton>
         <IconButton
           aria-label="Delete"
           icon={<MdDelete />}
-          onClick={() => console.log(`Eliminar ${user.email}`)}
+          onClick={() => onDeleteUser(user)}
           colorScheme="red"
         ></IconButton>
       </Stack>

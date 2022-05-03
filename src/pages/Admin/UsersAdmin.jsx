@@ -9,11 +9,11 @@ import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { ModalBasic } from "../../components/Common";
 
 export function UsersAdmin() {
-  const { loading, users, getUsers } = useUser();
-
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState(null);
   const [contentModal, setContentModal] = useState(null);
+  const [refetch, setRefetch] = useState(false);
+  const { loading, users, getUsers, deleteUser } = useUser();
 
   //const { isOpen, onOpen, onClose } = useDisclosure();
   // console.log("loading =>", loading);
@@ -21,18 +21,45 @@ export function UsersAdmin() {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [refetch]);
 
   const openCloseModal = () => setShowModal((prev) => !prev);
+  const onRefetch = () => setRefetch((prev) => !prev);
 
   const addUser = () => {
-    setTitleModal("Nuevo usuario");
-    setContentModal(<AddEditUserForm />);
+    setTitleModal("Crear usuario");
+    setContentModal(
+      <AddEditUserForm onClose={openCloseModal} onRefetch={onRefetch} />
+    );
     openCloseModal();
   };
-  console.log(titleModal);
-  console.log(contentModal);
 
+  const updateUser = (data) => {
+    console.log("Editar usuario..");
+    console.log(data);
+    setTitleModal("Actualizar usuario");
+    setContentModal(
+      <AddEditUserForm
+        onClose={openCloseModal}
+        onRefetch={onRefetch}
+        user={data}
+      />
+    );
+    openCloseModal();
+  };
+
+  const onDeleteUser = async (data) => {
+    const result = window.confirm(`¿Eliminar usuario ${data.email}?`);
+    if (result) {
+      console.log("usuario eliminado");
+      try {
+        await deleteUser(data.id);
+        onRefetch();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   return (
     <Box m={6}>
       <HeaderPage
@@ -53,7 +80,11 @@ export function UsersAdmin() {
           <Text>Cargando...</Text>
         </Flex>
       ) : (
-        <TableUsers users={users} />
+        <TableUsers
+          users={users}
+          updateUser={updateUser}
+          onDeleteUser={onDeleteUser}
+        />
       )}
       <ModalBasic
         show={showModal}

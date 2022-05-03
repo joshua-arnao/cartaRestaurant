@@ -6,7 +6,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
 } from "@chakra-ui/react";
 
 export function ModalBasic(props) {
@@ -26,14 +25,12 @@ export function ModalBasic(props) {
 
   return (
     <>
-      <Button onClick={show}>Open Modal</Button>
-
       <Modal isOpen={show} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          {title && <ModalHeader>{title}</ModalHeader>}
+          {title && <ModalHeader mt={4}>{title}</ModalHeader>}
           <ModalCloseButton />
-          <ModalBody pb={6}>{children}Contenido del modal</ModalBody>
+          <ModalBody p={0}>{children}</ModalBody>
         </ModalContent>
       </Modal>
     </>
