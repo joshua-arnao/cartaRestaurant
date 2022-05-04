@@ -30,7 +30,7 @@ export function ModalBasic(props) {
         <ModalContent>
           {title && <ModalHeader mt={4}>{title}</ModalHeader>}
           <ModalCloseButton />
-          <ModalBody p={0}>{children}</ModalBody>
+          <ModalBody px={6}>{children}</ModalBody>
         </ModalContent>
       </Modal>
     </>

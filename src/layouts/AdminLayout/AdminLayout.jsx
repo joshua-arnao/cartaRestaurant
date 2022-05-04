@@ -21,7 +21,7 @@ export function AdminLayout(props) {
         md: "72px 1fr",
       }}
       gridTemplateAreas={{
-        md: `'TopMenu' 'Content'`,
+        md: `'TopMenu' 'Main'`,
       }}
       gap={0}
     >
@@ -29,7 +29,7 @@ export function AdminLayout(props) {
         <TopMenu />
       </GridItem>
 
-      <GridItem gridArea="Content" className="admin-layout__main-content">
+      <GridItem gridArea="Main" className="admin-layout__main-content">
         <SideMenu>{children}</SideMenu>
       </GridItem>
     </Grid>

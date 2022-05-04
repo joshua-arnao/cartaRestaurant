@@ -24,7 +24,7 @@ export function AddEditUserForm(props) {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        if (user) await updateUser(user.id, formValue);
+        if (user) updateUser(user.id, formValue);
         else await addUser(formValue);
 
         onRefetch();
@@ -40,7 +40,7 @@ export function AddEditUserForm(props) {
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <ModalBody>
+      <ModalBody p={0}>
         <FormControl>
           <FormLabel>Usuario</FormLabel>
           <Input
@@ -103,6 +103,7 @@ export function AddEditUserForm(props) {
             name="is_active"
             isChecked={formik.values.is_active}
             //onChange={(_, data) => console.log(data)}
+            //onChange={(_, data) => setFieldValue("is_active",data.checked)}
             onChange={formik.handleChange}
             colorScheme="teal"
           />
@@ -120,7 +121,7 @@ export function AddEditUserForm(props) {
         </FormControl>
       </ModalBody>
 
-      <ModalFooter>
+      <ModalFooter px={0}>
         <Button type="submit" isFullWidth colorScheme="teal">
           {user ? "Actualizar" : "Crear"}
         </Button>
@@ -148,7 +149,7 @@ function newSchema() {
     first_name: Yup.string().required(true),
     last_name: Yup.string().required(true),
     password: Yup.string().required(true),
-    is_active: Yup.bool().required(true),
+    is_active: Yup.bool().isTrue(true).required(true),
     is_staff: Yup.bool().required(true),
   };
 }

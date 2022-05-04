@@ -1,4 +1,5 @@
 import React from "react";
+import { map } from "lodash";
 import {
   TableContainer,
   Table,
@@ -11,7 +12,6 @@ import {
   IconButton,
   Stack,
 } from "@chakra-ui/react";
-import { map } from "lodash";
 import {
   MdCheckCircle,
   MdCancel,

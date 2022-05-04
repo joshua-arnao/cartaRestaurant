@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Box, Stack, Spacer, Text, Button } from "@chakra-ui/react";
-import { MdPersonAddAlt1, MdPersonRemove } from "react-icons/md";
+import { MdAddCircle, MdPersonRemove } from "react-icons/md";
 
 export function HeaderPage(props) {
   const { title, btnTitle, btnClick, btnTitleTwo, btnClicTwo } = props;
@@ -24,7 +24,7 @@ export function HeaderPage(props) {
         <Box>
           {btnTitle && (
             <Button
-              leftIcon={<MdPersonAddAlt1 />}
+              leftIcon={<MdAddCircle />}
               colorScheme="teal"
               onClick={btnClick}
             >

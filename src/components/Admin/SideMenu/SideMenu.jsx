@@ -39,7 +39,7 @@ export function SideMenu(props) {
         <MenuLeft pathname={pathname} />
       </GridItem>
       <GridItem gridArea="Main">
-        <div>{children}</div>
+        <Box m="8">{children}</Box>
       </GridItem>
     </Grid>
   );

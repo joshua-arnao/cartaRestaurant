@@ -1,72 +1,63 @@
 import React, { useState, useEffect } from "react";
 import {
   HeaderPage,
-  TableUsers,
-  AddEditUserForm,
+  TableCategoryAdmin,
+  AddEditCategoryForm,
 } from "../../components/Admin";
-import { useUser } from "../../hooks";
-import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
+import { useCategory } from "../../hooks";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { ModalBasic } from "../../components/Common";
 
-export function UsersAdmin() {
+export function CategoriesAdmin() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState(null);
   const [contentModal, setContentModal] = useState(null);
   const [refetch, setRefetch] = useState(false);
-  const { loading, users, getUsers, deleteUser } = useUser();
 
-  //const { isOpen, onOpen, onClose } = useDisclosure();
-  // console.log("loading =>", loading);
-  // console.log("users =>", users);
+  const { loading, categories, getCategories, deleteCategory } = useCategory();
+  console.log(categories);
 
   useEffect(() => {
-    getUsers();
+    getCategories();
   }, [refetch]);
 
   const openCloseModal = () => setShowModal((prev) => !prev);
   const onRefetch = () => setRefetch((prev) => !prev);
 
-  const addUser = () => {
-    setTitleModal("Crear usuario");
+  const addCategory = () => {
+    setTitleModal("Nueva categoria");
     setContentModal(
-      <AddEditUserForm onClose={openCloseModal} onRefetch={onRefetch} />
+      <AddEditCategoryForm onClose={openCloseModal} onRefetch={onRefetch} />
     );
     openCloseModal();
   };
 
-  const updateUser = (data) => {
-    console.log("Editar usuario..");
-    console.log(data);
-    setTitleModal("Actualizar usuario");
+  const updateCategory = (data) => {
+    setTitleModal("Actualizar categoria");
     setContentModal(
-      <AddEditUserForm
+      <AddEditCategoryForm
         onClose={openCloseModal}
         onRefetch={onRefetch}
-        user={data}
+        category={data}
       />
     );
     openCloseModal();
   };
 
-  const onDeleteUser = async (data) => {
-    const result = window.confirm(`¿Eliminar usuario ${data.email}?`);
+  const onDeleteCategory = async (data) => {
+    const result = window.confirm(`¿Eliminar categoría ${data.title}?`);
     if (result) {
-      console.log("usuario eliminado");
-      try {
-        await deleteUser(data.id);
-        onRefetch();
-      } catch (error) {
-        console.log(error);
-      }
+      await deleteCategory(data.id);
+      onRefetch();
     }
   };
+
   return (
-    <Box>
+    <>
       <HeaderPage
-        title="Usuarios"
-        btnTitle="Nuevo Usuario"
-        btnClick={addUser}
-        // btnTitleTwo="Eliminar Usuario"
+        title="Categorias"
+        btnTitle="Nueva Categoria"
+        btnClick={addCategory}
       />
       {loading ? (
         <Flex flexDirection="column" alignItems="center" justifyItems="center">
@@ -80,18 +71,19 @@ export function UsersAdmin() {
           <Text>Cargando...</Text>
         </Flex>
       ) : (
-        <TableUsers
-          users={users}
-          updateUser={updateUser}
-          onDeleteUser={onDeleteUser}
+        <TableCategoryAdmin
+          categories={categories}
+          updateCategory={updateCategory}
+          deleteCategory={onDeleteCategory}
         />
       )}
+
       <ModalBasic
         show={showModal}
         onClose={openCloseModal}
         title={titleModal}
         children={contentModal}
       />
-    </Box>
+    </>
   );
 }
