@@ -51,7 +51,7 @@ function MenuLeft(props) {
   //console.log(pathname === "/admin");
   console.log(useAuth());
   return (
-    <Box pos="fixed" w="15rem" boxShadow="xs" minH="100vh">
+    <Box pos="fixed" w="15rem" boxShadow="xs" minH="100vh" bg="white">
       <List my={4}>
         <Flex
           alignItems="center"
