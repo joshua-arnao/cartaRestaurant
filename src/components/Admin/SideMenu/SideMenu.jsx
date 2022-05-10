@@ -69,7 +69,7 @@ function MenuLeft(props) {
           alignItems="center"
           p={4}
           as={Link}
-          to={"/admin/table"}
+          to={"/admin/tables"}
           bg={pathname === "/admin/table" ? "#bdbd" : "none"}
         >
           <Icon mr={4} as={MdTableChart} />

@@ -137,7 +137,7 @@ function initialValues(data) {
     first_name: data?.first_name || "",
     last_name: data?.last_name || "",
     password: "",
-    is_active: data?.is_active ? true : false,
+    is_active: data?.is_active ? false : true,
     is_staff: data?.is_staff ? true : false,
   };
 }
