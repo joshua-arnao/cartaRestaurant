@@ -29,7 +29,7 @@ export function TableTablesAdmin(props) {
 
         <Tbody>
           {map(tables, (table, index) => (
-            <Tr hey={index}>
+            <Tr key={index}>
               <Td>{table.number}</Td>
               <Actions
                 table={table}

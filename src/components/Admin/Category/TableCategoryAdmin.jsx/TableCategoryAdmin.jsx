@@ -29,7 +29,7 @@ export function TableCategoryAdmin(props) {
 
         <Tbody>
           {map(categories, (category, index) => (
-            <Tr hey={index}>
+            <Tr key={index}>
               <Td>
                 <Image w="100px" h="60px" src={category.image} />
               </Td>
