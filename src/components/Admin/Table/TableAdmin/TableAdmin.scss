@@ -1,0 +1,16 @@
+.table-admin {
+    svg{
+        width:200px !important; 
+        height:120px !important;
+
+        &.busy {
+            fill: #bb7900;
+          }
+          &.pending {
+            fill: #f9d876;
+          }
+          &.pending-payment {
+            fill: #008000;
+          }
+    }
+}
