@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { size } from "lodash";
 import className from "classnames";
+import { Link } from "react-router-dom";
 import { getOrdersByTableApi } from "../../../../api/orders";
 import { ORDER_STATUS } from "../../../../utils/constans";
 import { WrapItem, VStack, Text, Center, Circle } from "@chakra-ui/react";
@@ -8,8 +9,9 @@ import { ReactComponent as IcTable } from "../../../../assets/table.svg";
 import "./TableAdmin.scss";
 
 export function TableAdmin(props) {
-  const { table } = props;
+  const { table, reload } = props;
   const [orders, setOrders] = useState([]);
+  const [tableBusy, setTableBusy] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -21,40 +23,56 @@ export function TableAdmin(props) {
       // console.log(table.number);
       // console.log(response);
     })();
-  }, []);
+  }, [reload]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getOrdersByTableApi(
+        table.id,
+        ORDER_STATUS.DELIVERED
+      );
+      if (size(response) > 0) setTableBusy(response);
+      else setTableBusy(false);
+      // console.log(table.number);
+      // console.log(response);
+    })();
+  }, [reload]);
 
   return (
-    <WrapItem position="relative">
-      <VStack
-        alignContent="center"
-        p={4}
-        _hover={{
-          opacity: 0.5,
-        }}
-        cursor="pointer"
-        className="table-admin"
-      >
-        {size(orders) > 0 ? (
-          <Circle
-            position="absolute"
-            top="48px"
-            size="32px"
-            bg="tomato"
-            color="white"
-          >
-            {size(orders)}
-          </Circle>
-        ) : null}
-        <IcTable
-          className={className({
-            pending: size(orders) > 0,
-          })}
-          // fill={className() === pendding ? "#cac" : null}
-        />
-        <Center>
-          <Text>Mesa {table.number}</Text>
-        </Center>
-      </VStack>
-    </WrapItem>
+    <Link to={`/admin/table/${table.id}`}>
+      <WrapItem position="relative">
+        <VStack
+          alignContent="center"
+          p={4}
+          _hover={{
+            opacity: 0.5,
+          }}
+          cursor="pointer"
+          className="table-admin"
+        >
+          {size(orders) > 0 ? (
+            <Circle
+              position="absolute"
+              top="48px"
+              size="32px"
+              bg="tomato"
+              color="white"
+            >
+              {size(orders)}
+            </Circle>
+          ) : null}
+          <IcTable
+            className={className({
+              pending: size(orders) > 0,
+              busy: tableBusy,
+            })}
+            // fill={className() === pendding ? "#cac" : null}
+          />
+          <Center>
+            <Text>Mesa {table.number}</Text>
+          </Center>
+        </VStack>
+      </WrapItem>
+    </Link>
   );
 }

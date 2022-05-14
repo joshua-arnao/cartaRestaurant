@@ -20,6 +20,7 @@ import {
   CategoriesAdmin,
   ProductAdmin,
   TablesAdmin,
+  TableDatailsAdmin,
 } from "../pages/Admin";
 
 const routesAdmin = [
@@ -51,6 +52,12 @@ const routesAdmin = [
     path: "/admin/tables",
     layout: AdminLayout,
     component: TablesAdmin,
+    exact: true,
+  },
+  {
+    path: "/admin/table/:id",
+    layout: AdminLayout,
+    component: TableDatailsAdmin,
     exact: true,
   },
 ];
