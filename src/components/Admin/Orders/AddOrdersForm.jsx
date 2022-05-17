@@ -20,7 +20,6 @@ export function AddOrdersForm(props) {
   const [productsData, setProductsData] = useState([]);
   const { products, getProducts, getProductById } = useProduct();
   const { addOrderToTable } = useOrder();
-  console.log("productos -->", productsFormat.value);
   //console.log(productsFormat);
 
   useEffect(() => {
@@ -36,15 +35,17 @@ export function AddOrdersForm(props) {
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      for await (const idProduct of formValue.products) {
-        await addOrderToTable(idTable, idProduct);
-      }
-
-      onReloadOrders();
-      openCloseModal();
-      console.log("Creando Pedidos");
+      // for await (const idProduct of formValue.products) {
+      //   await addOrderToTable(idTable, idProduct);
+      console.log("creando pedidos");
       console.log(formValue);
     },
+
+    // onReloadOrders();
+    // openCloseModal();
+    // console.log("Creando Pedidos");
+    // console.log(formValue);
+    //},
   });
 
   useEffect(() => {
@@ -84,7 +85,10 @@ export function AddOrdersForm(props) {
               id={products}
               value={formik.values.id}
               //onChange={formik.handleChange}
-              onChange={formik.handleChange}
+              // onChange={(data) => console.log("información", data)}
+              onChange={(data) =>
+                formik.setFieldValue("products", [data.value])
+              }
             >
               {productsFormat.map((data) => (
                 <option key={data.text} data={data} value={data.value}>
