@@ -46,7 +46,8 @@ export function AddEditTableForm(props) {
               name="number"
               placeholder="Numero de mesa"
               value={formik.values.number}
-              onChange={formik.handleChange}
+              //onChange={formik.handleChange}
+              onChange={(data) => console.log(data)}
               isInvalid={formik.errors.number}
             />
           </FormControl>

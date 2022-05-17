@@ -4,11 +4,15 @@ import { OrderItemAdmin } from "../../../Admin";
 import { Stack } from "@chakra-ui/react";
 
 export function ListOrderAdmin(props) {
-  const { orders } = props;
+  const { orders, onReloadOrders } = props;
   return (
     <Stack spacing={8} my={8}>
       {map(orders, (order) => (
-        <OrderItemAdmin key={order.id} order={order} />
+        <OrderItemAdmin
+          key={order.id}
+          order={order}
+          onReloadOrders={onReloadOrders}
+        />
       ))}
     </Stack>
   );

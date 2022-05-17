@@ -4,14 +4,17 @@ import className from "classnames";
 import { Link } from "react-router-dom";
 import { getOrdersByTableApi } from "../../../../api/orders";
 import { ORDER_STATUS } from "../../../../utils/constans";
-import { WrapItem, VStack, Text, Center, Circle } from "@chakra-ui/react";
+import { WrapItem, VStack, Text, Center, Circle, Tag } from "@chakra-ui/react";
 import { ReactComponent as IcTable } from "../../../../assets/table.svg";
+import { usePayment } from "../../../../hooks";
 import "./TableAdmin.scss";
 
 export function TableAdmin(props) {
   const { table, reload } = props;
   const [orders, setOrders] = useState([]);
   const [tableBusy, setTableBusy] = useState(false);
+  const [pendingPayment, setPendingPayment] = useState(false);
+  const { getPaymentByTable } = usePayment();
 
   useEffect(() => {
     (async () => {
@@ -38,6 +41,14 @@ export function TableAdmin(props) {
     })();
   }, [reload]);
 
+  useEffect(() => {
+    (async () => {
+      const response = await getPaymentByTable(table.id);
+      if (size(response) > 0) setPendingPayment(true);
+      else setPendingPayment(false);
+    })();
+  }, [reload]);
+
   return (
     <Link to={`/admin/table/${table.id}`}>
       <WrapItem position="relative">
@@ -61,10 +72,25 @@ export function TableAdmin(props) {
               {size(orders)}
             </Circle>
           ) : null}
+
+          {pendingPayment && (
+            <Tag
+              size="lg"
+              variant="outline"
+              position="absolute"
+              top="40px"
+              bg="white"
+              colorScheme="red"
+              color="red"
+            >
+              Cuenta
+            </Tag>
+          )}
           <IcTable
             className={className({
               pending: size(orders) > 0,
               busy: tableBusy,
+              "pending-payment": pendingPayment,
             })}
             // fill={className() === pendding ? "#cac" : null}
           />

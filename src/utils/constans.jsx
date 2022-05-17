@@ -7,7 +7,7 @@ export const ORDER_STATUS = {
   DELIVERED: "DELIVERED",
 };
 
-// export const PAYMENT_STATUS = {
-//   PENDING: "PENDING",
-//   PAID: "PAID",
-// };
+export const PAYMENT_STATUS = {
+  PENDING: "PENDING",
+  PAID: "PAID",
+};

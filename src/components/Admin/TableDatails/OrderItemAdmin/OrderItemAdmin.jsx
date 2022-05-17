@@ -1,15 +1,32 @@
 import React from "react";
-import { HStack, Box, Image, Text } from "@chakra-ui/react";
+import {
+  HStack,
+  Box,
+  Image,
+  Text,
+  Button,
+  Flex,
+  Spacer,
+  Center,
+} from "@chakra-ui/react";
+import { useOrder } from "../../../../hooks";
 import moment from "moment";
 import "moment/locale/es";
+import { ORDER_STATUS } from "../../../../utils/constans";
 
 export function OrderItemAdmin(props) {
-  const { order } = props;
+  const { order, onReloadOrders } = props;
   const { title, image } = order.product_data;
   console.log(order);
+  const { checkDeliveredOrder } = useOrder();
+
+  const onCheckDeliveredOrder = async () => {
+    await checkDeliveredOrder(order.id);
+    onReloadOrders();
+  };
 
   return (
-    <HStack
+    <Flex
       position="relative"
       borderWidth="1px"
       borderColor="#333"
@@ -36,6 +53,19 @@ export function OrderItemAdmin(props) {
         <Image boxSize="100px" width="150px" src={image} />
         <Text>{title}</Text>
       </HStack>
-    </HStack>
+      <Spacer />
+      <Center>
+        {order.status === ORDER_STATUS.PENDING ? (
+          <Button
+            size="sm"
+            colorScheme="pink"
+            boxShadow="base"
+            onClick={() => onCheckDeliveredOrder()}
+          >
+            Marcar Entregado
+          </Button>
+        ) : null}
+      </Center>
+    </Flex>
   );
 }

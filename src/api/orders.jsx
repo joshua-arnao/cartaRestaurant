@@ -45,7 +45,7 @@ export async function addOrderToTableApi(idTable, idProduct) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        status: BASE_API_URL.PENDING,
+        status: ORDER_STATUS.PENDING,
         table: idTable,
         product: idProduct,
       }),
