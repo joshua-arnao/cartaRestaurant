@@ -13,14 +13,14 @@
 // export default routesClient;
 
 // --------------------- V@5.3.0 ---------------------
-import { ClientLayout } from "../layouts";
-import { Home } from "../pages/Client";
+import { ErrorLayout } from "../layouts";
+import { SelectTable } from "../pages/Client";
 
 const routesClient = [
   {
     path: "/",
-    layout: ClientLayout,
-    component: Home,
+    layout: ErrorLayout,
+    component: SelectTable,
     exact: true,
   },
 ];
