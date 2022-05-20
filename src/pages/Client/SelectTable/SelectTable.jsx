@@ -31,7 +31,7 @@ export function SelectTable(props) {
     console.log("click");
     console.log("array -->", Object.entries(tableNum).pop());
     setError(null);
-    if (!tableNum) {
+    if (!tableNum.numberTable) {
       setError("No Registro ninguna mesa");
     } else {
       console.log("Entrando...");

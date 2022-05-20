@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { getOrdersByTableApi } from "../../../../api/orders";
 import { ORDER_STATUS } from "../../../../utils/constans";
 import { WrapItem, VStack, Text, Center, Circle, Tag } from "@chakra-ui/react";
-import { ReactComponent as IcTable } from "../../../../assets/table.svg";
+import { ReactComponent as IcTable } from "../../../../assets/table-two.svg";
 import { usePayment } from "../../../../hooks";
 import "./TableAdmin.scss";
 
@@ -64,12 +64,15 @@ export function TableAdmin(props) {
           {size(orders) > 0 ? (
             <Circle
               position="absolute"
-              top="48px"
+              top="97px"
               size="32px"
               bg="tomato"
               color="white"
+              boxShadow="2xl"
             >
-              {size(orders)}
+              <Text fontWeights="900" fontSize="xl">
+                {size(orders)}
+              </Text>
             </Circle>
           ) : null}
 
@@ -78,7 +81,7 @@ export function TableAdmin(props) {
               size="lg"
               variant="outline"
               position="absolute"
-              top="40px"
+              top="89px"
               bg="white"
               colorScheme="red"
               color="red"
