@@ -28,8 +28,8 @@ export function SelectTable(props) {
   };
 
   const onSubmit = async () => {
-    console.log("click");
-    console.log("array -->", Object.entries(tableNum).pop());
+    //console.log("click");
+    //console.log("array -->", Object.entries(tableNum).pop());
     setError(null);
     if (!tableNum.numberTable) {
       setError("No Registro ninguna mesa");

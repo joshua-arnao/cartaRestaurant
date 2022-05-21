@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { map } from "lodash";
 import { useFormik, Formik } from "formik";
 import * as Yup from "yup";
+import { useProduct, useOrder } from "../../../hooks";
 import {
   ModalFooter,
   ModalBody,
@@ -12,7 +13,6 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
-import { useProduct, useOrder } from "../../../hooks";
 
 export function AddOrdersForm(props) {
   const { idTable, openCloseModal, onReloadOrders } = props;
@@ -20,7 +20,7 @@ export function AddOrdersForm(props) {
   const [productsData, setProductsData] = useState([]);
   const { products, getProducts, getProductById } = useProduct();
   const { addOrderToTable } = useOrder();
-  //console.log(productsFormat);
+  console.log("products -->", products);
 
   useEffect(() => {
     getProducts();
@@ -30,6 +30,25 @@ export function AddOrdersForm(props) {
     setProductsFormat(formatDropdownData(products));
   }, [products]);
 
+  const handleSelectChange = (event) => {
+    console.log("ID Producto Seleccionado -->", event.target.value);
+    console.log(products);
+    // const id = event.target.value;
+    // //const productToAdd = products.find((prod) => prod.id === id);
+    // |const listProducts = productsData;
+    // listProducts.push(id);
+    // setProductsData(id);
+
+    setProductsData({
+      ...productsData,
+      //[event.target.name]: formik.setFieldValue([event.target.value]),
+      //[event.target.name]: event.target.value,
+      [event.target.name]: [...formik.values.products, event.target.value],
+    });
+    console.log("Array de Productos -->", event.target.name);
+    console.log("productsData", productsData);
+  };
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
@@ -38,7 +57,7 @@ export function AddOrdersForm(props) {
       // for await (const idProduct of formValue.products) {
       //   await addOrderToTable(idTable, idProduct);
       console.log("creando pedidos");
-      console.log(formValue);
+      console.log("formValue", formValue);
     },
 
     // onReloadOrders();
@@ -48,47 +67,37 @@ export function AddOrdersForm(props) {
     //},
   });
 
-  useEffect(() => {
-    addProductList();
-  }, [formik.values]);
+  // useEffect(() => {
+  //   addProductList();
+  // }, [formik.values]);
 
-  const addProductList = async () => {
-    try {
-      const productsId = formik.values.products;
+  // const addProductList = async () => {
+  //   try {
+  //     const productsId = formik.values.products;
 
-      const arrayTemp = [];
-      for await (const idProduct of productsId) {
-        console.log(idProduct);
-        const response = await getProductById(idProduct);
-        arrayTemp.push(response);
-      }
-      setProductsData(arrayTemp);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // const [value, setValue] = useState(null);
-  // const handleSelectChange = (value) => {
-  //   console.log("VALORES ---->", value);
-  //   setValue(value);
+  //     const arrayTemp = [];
+  //     for await (const idProduct of productsId) {
+  //       console.log(idProduct);
+  //       const response = await getProductById(idProduct);
+  //       arrayTemp.push(response);
+  //     }
+  //     setProductsData(arrayTemp);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
   // };
 
   return (
-    <Formik validateOnChange={false} initialValues={initialValues()}>
+    <Formik validateOnChange={false}>
       <form onSubmit={formik.handleSubmit}>
         <ModalBody p={0}>
           <FormControl>
             <FormLabel>Producto</FormLabel>
             <Select
               placeholder="Producto"
-              id={products}
               value={formik.values.id}
-              //onChange={formik.handleChange}
-              // onChange={(data) => console.log("información", data)}
-              onChange={(data) =>
-                formik.setFieldValue("products", [data.value])
-              }
+              name="products"
+              onClick={handleSelectChange}
             >
               {productsFormat.map((data) => (
                 <option key={data.text} data={data} value={data.value}>
@@ -97,7 +106,7 @@ export function AddOrdersForm(props) {
               ))}
             </Select>
 
-            <div>
+            {/* <div>
               {map(productsData, (product, index) => (
                 <div key={index}>
                   <div>
@@ -105,38 +114,17 @@ export function AddOrdersForm(props) {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </FormControl>
-          {/* <FormControl>
-            <FormLabel>Categoria</FormLabel>
-            <Select
-              isMulti
-              options={productsFormat}
-              name="productsFormat"
-              placeholder="Productos"
-              value={value}
-              // onChange={(data) =>
-              //   formik.setFieldValue("products", [
-              //     ...formik.values.products,
-              //     data.value,
-              //   ])
-              // }
-              // onChange={handleSelectChange}
-              //   value={formik.values.title}
-              // onChange={formik.handleChange}
-              //   isInvalid={formik.errors.title}
-            />
-            {productsFormat.map((data) => (
-                <option key={data.text} data={data}>
-                  {data.text}
-                </option>
-              ))}
-            </Select>
-          </FormControl> */}
         </ModalBody>
         <ModalFooter px={0} mt={6}>
           <Box w="100%">
-            <Button type="submit" isFullWidth colorScheme="teal">
+            <Button
+              type="submit"
+              isFullWidth
+              colorScheme="teal"
+              onClick={handleSelectChange}
+            >
               Crear
             </Button>
           </Box>

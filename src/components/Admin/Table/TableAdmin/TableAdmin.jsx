@@ -70,9 +70,7 @@ export function TableAdmin(props) {
               color="white"
               boxShadow="2xl"
             >
-              <Text fontWeights="900" fontSize="xl">
-                {size(orders)}
-              </Text>
+              <Text fontSize="xl">{size(orders)}</Text>
             </Circle>
           ) : null}
 

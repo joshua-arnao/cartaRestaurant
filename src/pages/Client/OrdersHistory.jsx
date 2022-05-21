@@ -5,7 +5,7 @@ import { map, size, forEach } from "lodash";
 import { useOrder, useTable, usePayment } from "../../hooks";
 import { OrderHistoryItem } from "../../components/Client";
 import { ModalConfirm } from "../../components/Common";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Text, Center, VStack, Flex } from "@chakra-ui/react";
 
 export const OrdersHistory = () => {
   const [idTable, setIdTable] = useState();
@@ -64,26 +64,40 @@ export const OrdersHistory = () => {
 
   return (
     <Box>
-      <h2>Historial de Pedidos</h2>
+      <Box align="center" p="16px">
+        <Text textAlign="center" fontSize={{ base: "2xl", lg: "3xl" }}>
+          Mi Pedido
+        </Text>
+      </Box>
       {loading ? (
-        <p>Cargando...</p>
+        <Center mt="16px">Cargando...</Center>
       ) : (
-        <>
-          {size(orders) > 0 && (
-            <Button
-              onClick={() =>
-                size(isRequestAccount) === 0 && setShowTypePayment(true)
-              }
-            >
-              {size(isRequestAccount) > 0
-                ? "La cuenta ya esta pedida"
-                : "Pedir la cuenta"}
-            </Button>
-          )}
+        <VStack mt={4} align="center">
           {map(orders, (order) => (
             <OrderHistoryItem key={order.id} order={order} />
           ))}
-        </>
+          {size(orders) > 0 && (
+            <Box
+              position="absolute"
+              bottom="0"
+              w={{ base: "90%", lg: "50%" }}
+              pb="64px"
+              bg="white"
+            >
+              <Button
+                onClick={() =>
+                  size(isRequestAccount) === 0 && setShowTypePayment(true)
+                }
+                isFullWidth
+                boxShadow="base"
+              >
+                {size(isRequestAccount) > 0
+                  ? "La cuenta ya esta pedida"
+                  : "Pedir la cuenta"}
+              </Button>
+            </Box>
+          )}
+        </VStack>
       )}
       <ModalConfirm
         title="Pagar con Tarjeta o efectivo"

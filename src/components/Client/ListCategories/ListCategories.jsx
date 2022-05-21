@@ -16,13 +16,7 @@ export function ListCategories(props) {
   };
 
   return (
-    <Wrap
-      align="stretch"
-      spacing="16px"
-      py={{ base: "6px", md: "16px" }}
-      justify="center"
-      mt={4}
-    >
+    <Wrap align="stretch" spacing="16px" justify="center">
       {map(categories, (category) => (
         <HStack
           key={category.id}

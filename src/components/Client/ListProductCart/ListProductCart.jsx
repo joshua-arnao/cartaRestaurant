@@ -3,7 +3,20 @@ import { map, forEach } from "lodash";
 import { useParams, useHistory } from "react-router-dom";
 import { removeProductCartApi, cleanProductCartApi } from "../../../api/cart";
 import { useOrder, useTable } from "../../../hooks";
-import { Avatar, Text, IconButton, Button, Divider } from "@chakra-ui/react";
+import {
+  Avatar,
+  Text,
+  IconButton,
+  Button,
+  Divider,
+  HStack,
+  Stack,
+  Flex,
+  VStack,
+  Spacer,
+  Center,
+  Box,
+} from "@chakra-ui/react";
 import { MdDeleteForever } from "react-icons/md";
 
 export function ListProductCart(props) {
@@ -41,24 +54,47 @@ export function ListProductCart(props) {
   };
 
   return (
-    <div>
-      <Text>ListProductCart</Text>
+    <Stack mt={4} align="center">
       {map(products, (product, index) => (
-        <div key={index}>
-          <div>
-            <Avatar src={product.image} />
-            <span>{product.title.substring(0, 15)}</span>
-          </div>
-          <span>{product.price} $</span>
-          <IconButton
-            icon={<MdDeleteForever />}
-            onClick={() => removeProduct(index)}
-          />
-          <Divider />
-        </div>
-      ))}
+        <VStack
+          key={index}
+          py="10px"
+          px="20px"
+          rounded="lg"
+          w={{ base: "90%", lg: "50%" }}
+        >
+          <Flex w="100%" py="10px">
+            <HStack>
+              <Avatar src={product.image} />
+              <Text>{product.title.substring(0, 15)}</Text>
+            </HStack>
+            <Spacer />
+            <Center>
+              <Text>{product.price} $</Text>
+            </Center>
 
-      <Button onClick={createOrder}>Realizar Pedido ({total} $)</Button>
-    </div>
+            <Spacer />
+            <IconButton
+              fontSize="20px"
+              boxShadow="base"
+              icon={<MdDeleteForever />}
+              onClick={() => removeProduct(index)}
+            />
+          </Flex>
+          <Divider />
+        </VStack>
+      ))}
+      <Spacer />
+      <Box
+        position="absolute"
+        bottom="0"
+        w={{ base: "90%", lg: "50%" }}
+        pb="64px"
+      >
+        <Button onClick={createOrder} isFullWidth boxShadow="base">
+          Realizar Pedido ({total} $)
+        </Button>
+      </Box>
+    </Stack>
   );
 }

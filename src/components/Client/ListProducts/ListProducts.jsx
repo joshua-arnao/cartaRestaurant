@@ -2,7 +2,18 @@ import React from "react";
 import { map } from "lodash";
 import { toast } from "react-toastify";
 import { addProductCart } from "../../../api/cart";
-import { Image, Text, Button } from "@chakra-ui/react";
+import {
+  Stack,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  IconButton,
+  Spacer,
+  Center,
+  VStack,
+} from "@chakra-ui/react";
+import { MdOutlineAdd } from "react-icons/md";
 
 export function ListProducts(props) {
   const { products } = props;
@@ -15,16 +26,33 @@ export function ListProducts(props) {
   };
 
   return (
-    <div>
+    <Stack mt={4} align="center">
       {map(products, (product) => (
-        <div key={product.id}>
-          <div>
-            <Image src={product.image} />
-            <Text>{product.title}</Text>
-          </div>
-          <Button onClick={() => addcart(product)}>Agregar</Button>
-        </div>
+        <Flex
+          key={product.id}
+          border="1px"
+          borderColor="gray.200"
+          py="10px"
+          px="20px"
+          w={{ base: "90%", lg: "50%" }}
+          rounded="lg"
+        >
+          <HStack>
+            <Image rounded="lg" boxSize="80px" src={product.image} />
+            <Text fontSize="lg">{product.title}</Text>
+          </HStack>
+          <Spacer />
+          <Center>
+            <IconButton
+              icon={<MdOutlineAdd />}
+              fontSize="20px"
+              boxShadow="base"
+              colorScheme="purple"
+              onClick={() => addcart(product)}
+            />
+          </Center>
+        </Flex>
       ))}
-    </div>
+    </Stack>
   );
 }
