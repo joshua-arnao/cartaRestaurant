@@ -95,7 +95,7 @@ function MenuLeft(props) {
           as={Link}
           to={"/admin/categories"}
           bg={pathname === "/admin/categories" ? "#bdbd" : "none"}
-        >
+        > 
           <Icon mr={4} as={MdFolder} />
           <Text>Categorias</Text>
           <Spacer />
