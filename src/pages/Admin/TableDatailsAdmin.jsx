@@ -41,7 +41,7 @@ export function TableDatailsAdmin() {
 
   const onCreatePaymente = async () => {
     const result = window.confirm(
-      "¿stas seguro de generar lac uenta de la mesa?"
+      "¿Estas seguro de generar la cuenta de la mesa?"
     );
 
     if (result) {
@@ -53,7 +53,7 @@ export function TableDatailsAdmin() {
       });
 
       const resultTypePayment = window.confirm(
-        "¿Pago con tarjeta ulsa OK pago con efectivo pulsa CANCELAR?"
+        "¿Pago con tarjeta pulsa OK pago con efectivo pulsa CANCELAR?"
       );
 
       const paymentData = {

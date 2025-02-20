@@ -17,7 +17,7 @@ import {
 export function AddOrdersForm(props) {
   const { idTable, openCloseModal, onReloadOrders } = props;
   const [productsFormat, setProductsFormat] = useState([]);
-  const [productsData, setProductsData] = useState([]);
+  const [productsData, setProductsData] = useState();
   const { products, getProducts, getProductById } = useProduct();
   const { addOrderToTable } = useOrder();
   console.log("products -->", products);
@@ -32,22 +32,17 @@ export function AddOrdersForm(props) {
 
   const handleSelectChange = (event) => {
     console.log("ID Producto Seleccionado -->", event.target.value);
-    console.log(products);
-    // const id = event.target.value;
-    // //const productToAdd = products.find((prod) => prod.id === id);
-    // |const listProducts = productsData;
-    // listProducts.push(id);
-    // setProductsData(id);
-
-    setProductsData({
-      ...productsData,
-      //[event.target.name]: formik.setFieldValue([event.target.value]),
-      //[event.target.name]: event.target.value,
-      [event.target.name]: [...formik.values.products, event.target.value],
-    });
-    console.log("Array de Productos -->", event.target.name);
-    console.log("productsData", productsData);
+    setProductsData(event.target.value)
   };
+
+  const handleAddNewProduct = () => {
+    addOrderToTable(idTable, productsData);
+    openCloseModal();
+    getProducts();
+    onReloadOrders();
+    
+  };
+
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -123,9 +118,9 @@ export function AddOrdersForm(props) {
               type="submit"
               isFullWidth
               colorScheme="teal"
-              onClick={handleSelectChange}
+              onClick={handleAddNewProduct}
             >
-              Crear
+              Añadir Pedido
             </Button>
           </Box>
         </ModalFooter>
