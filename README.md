@@ -12,7 +12,9 @@
 ✔️ Sistema de Permisos y Zonas Restringidas
 ✔️ Integración con Django REST Framework y API REST
 
-### `yarn start`
+### 🎬 Demo
+
+![Screenshot 2025-02-26 at 08 01 10](https://github.com/user-attachments/assets/6497a3f3-019b-44bf-93d8-405f8c663c06)
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
