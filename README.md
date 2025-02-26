@@ -4,7 +4,7 @@
 
 ## 🚀 Características Clave
 
-✔️ Autenticación con JWT (Registro/Login de Administradores y Clientes)
+✔️ Autenticación con JWT (Registro/Login de Administradores y Clientes)\n
 ✔️ Gestión de Productos y Pedidos (CRUD completo con Django y React)
 ✔️ Panel de Administrador y Panel de Cliente
 ✔️ Carrito de Compras con Context API
