@@ -14,7 +14,14 @@
 
 ### 🎬 Demo
 
-![Screenshot 2025-02-26 at 08 01 10](https://github.com/user-attachments/assets/6497a3f3-019b-44bf-93d8-405f8c663c06)
+Administrador:
+✔️ Vista Login 
+
+![Screenshot 2025-02-26 at 15 01 16](https://github.com/user-attachments/assets/8941c05c-cca0-4916-8fa2-ea2b26fd526f)
+
+✔️ Vista principal - pedidos
+
+![Screenshot 2025-02-26 at 07 59 00](https://github.com/user-attachments/assets/aba6e8d4-9686-4c37-ad16-431226543935)
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
