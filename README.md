@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+# 🍽️ Carta Digital con Pedidos | React & Django
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+📌 Plataforma web para gestionar pedidos en restaurantes, permitiendo digitalizar la carta, gestionar clientes y administrar pedidos en tiempo real.
 
-## Available Scripts
+## 🚀 Características Clave
 
-In the project directory, you can run:
+✔️ Autenticación con JWT (Registro/Login de Administradores y Clientes)
+✔️ Gestión de Productos y Pedidos (CRUD completo con Django y React)
+✔️ Panel de Administrador y Panel de Cliente
+✔️ Carrito de Compras con Context API
+✔️ Validaciones de Formularios con Formik y Yup
+✔️ Sistema de Permisos y Zonas Restringidas
+✔️ Integración con Django REST Framework y API REST
 
 ### `yarn start`
 
